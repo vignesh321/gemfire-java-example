@@ -14,18 +14,23 @@ docker run -it -p 10334:10334 -p 1099:1099 -p 7070:7070 -p 8080:8080 -p 40404:40
 ```
 
 
-### Setting up Gemfire with gfsh 
+### Gemfire with gfsh CLI 
 
-- start locator — hostname-for-clients=localhost
+- start locator --hostname-for-clients=localhost
 - start server --hostname-for-clients=localhost
 - list members 
 - create region --name=r1 --type=REPLICATE
 - put --region=r1 --key="1" --value="one"
 - describe region --name=r1
 - query --query="select * from /r1"
-- remove --region=/Test --all=true
+- remove --region=/Test --all=true  
+  
+**NOTE** - use the below configuration commands before starting the cache server, for the serialization effect to take place
+- configure pdx --read-serialized=true (for PDX serializations)
+- configure pdx --disk-store=DEFAULT
+- show metric ( will show the cluster-wide metrics)
 
-Pulse login (creds - admin, admin)
+Pulse login (credentials - admin, admin)  
 http://localhost:7070/pulse/clusterDetail.html
 
 
