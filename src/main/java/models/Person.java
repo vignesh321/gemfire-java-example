@@ -1,3 +1,5 @@
+package models;
+
 import org.apache.geode.pdx.PdxReader;
 import org.apache.geode.pdx.PdxSerializable;
 import org.apache.geode.pdx.PdxWriter;
@@ -48,7 +50,7 @@ public class Person /*implements PdxSerializable*/ {
 
     @Override
     public String toString() {
-        return "Person{" +
+        return "models.Person{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", age=" + age +

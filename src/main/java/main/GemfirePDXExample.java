@@ -1,8 +1,12 @@
+package main;
+
+import models.Person;
 import org.apache.geode.cache.Region;
 import org.apache.geode.cache.client.ClientCache;
 import org.apache.geode.cache.client.ClientCacheFactory;
 import org.apache.geode.cache.client.ClientRegionShortcut;
 import org.apache.geode.pdx.PdxInstance;
+import utils.SerializerClass;
 
 import java.util.Arrays;
 import java.util.List;
