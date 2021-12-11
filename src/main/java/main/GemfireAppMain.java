@@ -6,7 +6,11 @@ import org.apache.geode.cache.client.ClientCache;
 import org.apache.geode.cache.client.ClientCacheFactory;
 import org.apache.geode.cache.client.ClientRegionShortcut;
 
-import java.util.*;
+import java.time.Duration;
+import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 public class GemfireAppMain {
 
@@ -15,7 +19,7 @@ public class GemfireAppMain {
     public static void main(String[] args){
 
         System.out.println("Insert records into cache");
-
+        System.out.println("Start time : " + Instant.now());
         ClientCache clientCache = new ClientCacheFactory()
                 .addPoolLocator("localhost", 10334)
                 .create();
@@ -24,14 +28,20 @@ public class GemfireAppMain {
         Region<Integer, String> putRegion = clientCache.getRegion(REGION);
 
         List<String> keys = new ArrayList<>();
-        Map map = new HashedMap();
+        HashedMap map = new HashedMap();
         for (int i = 2; i<100 ; i++){
             map.put(String.valueOf(i), "Hello-World" + i);
             keys.add(String.valueOf(i));
         }
+        Instant startInsert = Instant.now();
 
+        System.out.println("Begin Insert Time : " + Instant.now());
         putRegion.putAll(map);
+        Instant endInsert = Instant.now();
+        System.out.println("Time for Insert : " + Duration.between(startInsert, endInsert).toMillis() + " ms");
         System.out.println("Inserted successfully");
+
+
         System.out.println("Printing records in Gemfire");
         Region<String, String> getRegion = clientCache.getRegion("Sample01");
 

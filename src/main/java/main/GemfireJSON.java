@@ -36,7 +36,8 @@ public class GemfireJSON{
         }
 
         // corresponding gfsh query - query --query="select * from /jsonRegion j where j.age <30"
-        SelectResults<PdxInstance> searchResults = jsonRegion.query("age < 30");
+        //SelectResults<PdxInstance> searchResults = jsonRegion.query("age < 30");
+        SelectResults<PdxInstance> searchResults = jsonRegion.query("name = 'person-99'");
 
         System.out.println("Total matched size for the search query " + searchResults.size() );
 

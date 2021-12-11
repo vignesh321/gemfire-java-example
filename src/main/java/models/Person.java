@@ -1,9 +1,5 @@
 package models;
 
-import org.apache.geode.pdx.PdxReader;
-import org.apache.geode.pdx.PdxSerializable;
-import org.apache.geode.pdx.PdxWriter;
-
 public class Person /*implements PdxSerializable*/ {
 
     private int id;
