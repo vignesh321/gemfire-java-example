@@ -16,7 +16,7 @@ import java.util.concurrent.ThreadLocalRandom;
 public class GemfireJSON{
 
     public static final String REGION = "jsonRegion";
-
+    public static final int MAX_ENTRIES = 2;
     public static void main(String[] args) throws  Exception{
 
         ClientCache clientCache = new ClientCacheFactory()
@@ -28,7 +28,7 @@ public class GemfireJSON{
         Region<String, PdxInstance> jsonRegion = clientCache.getRegion(REGION);
 
 
-        for ( int i=1; i< 100; i++) {
+        for ( int i=1; i< MAX_ENTRIES; i++) {
 
             JSONObject obj = new JSONObject(new Person("person-"+i, getRandomAge(), i));
             System.out.println("json object - " + obj.toString());
@@ -37,7 +37,7 @@ public class GemfireJSON{
 
         // corresponding gfsh query - query --query="select * from /jsonRegion j where j.age <30"
         //SelectResults<PdxInstance> searchResults = jsonRegion.query("age < 30");
-        SelectResults<PdxInstance> searchResults = jsonRegion.query("name = 'person-99'");
+        SelectResults<PdxInstance> searchResults = jsonRegion.query("name = 'person-103'");
 
         System.out.println("Total matched size for the search query " + searchResults.size() );
 
@@ -48,6 +48,12 @@ public class GemfireJSON{
 
         clientCache.close();
     }
+
+    //put --key=103 --region=jsonRegion --value=('name':person-103,'id':103,'age':22) --value-class=models.Person
+
+    // working
+    // put --key=102 --region=jsonRegion --value=('name':person-102,'id':103,'age':22) --value-class=models.Person
+    //put --key=102 --region=jsonRegion --value=({"name" : "person-103", "id" : 103 , "age" : 22}) --value-class=models.Person
 
     /**
      * Function to return a random integer back as age
